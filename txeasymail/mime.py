@@ -19,10 +19,11 @@ def buildMessage(headers, parts):
     message = multipart.MIMEMultipart('alternative')
 
     for name, value in headers.iteritems():
+        name = name.title()
         if name == "From":
-            multipart[name] = _encodeAddresses(value)
-        elif name in ["To", "Cc", "Bcc"]:
             multipart[name] = _encodeAddress(value)
+        elif name in ["To", "Cc", "Bcc"]:
+            multipart[name] = _encodeAddresses(value)
         else:
             multipart[name] = _encodeHeader(value)
 
